@@ -26,6 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     // Método chamado uma vez por requisição para processar o filtro
+    // passar nosso token, vai pegar o header
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
