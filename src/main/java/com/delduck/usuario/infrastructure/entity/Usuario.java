@@ -1,6 +1,7 @@
 package com.delduck.usuario.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.jspecify.annotations.Nullable;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "usuario")
+@Builder
 public class Usuario implements UserDetails {
 
     @Id
