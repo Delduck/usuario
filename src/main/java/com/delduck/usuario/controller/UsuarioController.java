@@ -5,6 +5,7 @@ import com.delduck.usuario.business.dto.UsuarioDTO;
 import com.delduck.usuario.infrastructure.entity.Usuario;
 import com.delduck.usuario.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,5 +46,13 @@ public class UsuarioController {
         usuarioService.deletarUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> atualizaDadosUsuario(@RequestBody UsuarioDTO usuarioDTO,
+                                                           @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, usuarioDTO));
+    }
+
+
 
 }
