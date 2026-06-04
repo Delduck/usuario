@@ -6,6 +6,7 @@ import com.delduck.usuario.business.dto.UsuarioDTO;
 import com.delduck.usuario.infrastructure.entity.Endereco;
 import com.delduck.usuario.infrastructure.entity.Telefone;
 import com.delduck.usuario.infrastructure.entity.Usuario;
+import jakarta.persistence.Column;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -71,6 +72,7 @@ public class UsuarioConverter {
 
     public EnderecoDTO paraEnderecoDTO(Endereco endereco) {
         return EnderecoDTO.builder()
+                .id(endereco.getId())
                 .rua(endereco.getRua())
                 .numero(endereco.getNumero())
                 .cidade(endereco.getCidade())
@@ -99,9 +101,29 @@ public class UsuarioConverter {
 
     public TelefoneDTO paraTelefoneDTO(Telefone telefone) {
         return TelefoneDTO.builder()
+                .id(telefone.getId())
                 .numero(telefone.getNumero())
                 .ddd(telefone.getDdd())
                 .build();
     }
 
+    public Endereco updateEndereco(EnderecoDTO endDTO, Endereco endEntity) {
+        return Endereco.builder()
+                .id(endEntity.getId())
+                .rua(endDTO.getRua() != null ? endDTO.getRua() : endEntity.getRua())
+                .numero(endDTO.getNumero() != null ? endDTO.getNumero() : endEntity.getNumero())
+                .complemento(endDTO.getComplemento() != null ? endDTO.getComplemento() : endEntity.getComplemento())
+                .cidade(endDTO.getCidade() != null ? endDTO.getCidade() : endEntity.getCidade())
+                .estado(endDTO.getEstado() != null ? endDTO.getEstado() : endEntity.getEstado())
+                .cep(endDTO.getCep() != null ? endDTO.getCep() : endEntity.getCep())
+                .build();
+    }
+
+    public Telefone updateTelefone(TelefoneDTO telDTO, Telefone telEntity) {
+        return Telefone.builder()
+                .id(telEntity.getId())
+                .numero(telDTO.getNumero() != null ? telDTO.getNumero() : telEntity.getNumero())
+                .ddd(telDTO.getDdd() != null ? telDTO.getDdd() : telEntity.getDdd())
+                .build();
+    }
 }
