@@ -4,10 +4,8 @@ import com.delduck.usuario.business.UsuarioService;
 import com.delduck.usuario.business.dto.EnderecoDTO;
 import com.delduck.usuario.business.dto.TelefoneDTO;
 import com.delduck.usuario.business.dto.UsuarioDTO;
-import com.delduck.usuario.infrastructure.entity.Usuario;
 import com.delduck.usuario.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,8 +41,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
     }
 
-    @DeleteMapping("/{email}")
-    public ResponseEntity<Void> deletarUsuarioPorEmail(@PathVariable String email) {
+    @DeleteMapping
+    public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam("email") String email) {
         usuarioService.deletarUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
     }
@@ -57,14 +55,14 @@ public class UsuarioController {
 
     @PutMapping("/endereco")
     public ResponseEntity<EnderecoDTO> atualizaEndereco(@RequestBody EnderecoDTO enderecoDTO,
-                                                            @RequestParam("id") Long id) {
-        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, enderecoDTO));
+                                                        @RequestParam("idEndereco") Long idEndereco) {
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(idEndereco, enderecoDTO));
     }
 
     @PutMapping("/telefone")
     public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO  telefoneDTO,
-                                                         @RequestParam("id") Long id) {
-        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, telefoneDTO));
+                                                        @RequestParam("idTelefone") Long idTelefone) {
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(idTelefone, telefoneDTO));
     }
 
     @PostMapping("/endereco")
